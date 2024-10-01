@@ -21,28 +21,32 @@ export default function Banner({ location, setLocation, motive, setMotive, type,
     <div className='relative h-full bg-banner overflow-hidden'>
       <div className='relative container lg:w-5/6 mx-auto py-5 lg:py-8 overflow-hidden h-full'>
         {/* Button to open popup on small screens */}
-        <div className='lg:hidden absolute bottom-0 right-0 left-0 z-40 text-center mb-5'>
-          <button 
-            onClick={handleOpenPopup}
-            className=' bg-gradient-to-b from-transparent to-[#005ca8] border backdrop-blur-md text-white font-medium text-sm px-5 py-2 rounded-[30px]'
+        <div  onClick={handleOpenPopup} className='lg:hidden cursor-pointer  text-center bg-[#005ca8] mx-2 p-2 rounded-t-full absolute bottom-0 right-0 left-0 z-40'>
+
+          <button
+           
+            className='flex items-center justify-center bg-transparent   text-white font-medium text-md mx-auto px-6 py-2 rounded-md hover:shadow-lg transition-all duration-200'
           >
-            Discover Properties
+            <span className='mr-2 animate-bounce text-xl'>🔍</span>
+          <span className=' underline font-sans underline-offset-2 text-[18px]'>Click Here to Search Properties</span>
           </button>
+
+
         </div>
 
         {/* Tab banner displayed as popup on small screens */}
         {isPopupOpen && (
           <div className='fixed px-4 inset-0 flex items-center justify-center z-50 bg-black/50'>
             <div className='bg-white p-5 rounded-lg w-full max-w-lg mx-auto relative'>
-              <button 
-                onClick={handleClosePopup} 
+              <button
+                onClick={handleClosePopup}
                 className='absolute top-2 right-2 text-black text-xl'
               >
                 &times;
               </button>
-              
-              <Tabbanner 
-               location={location} setLocation={setLocation} motive={motive} setMotive={setMotive} type={type} setType={setType}
+
+              <Tabbanner
+                location={location} setLocation={setLocation} motive={motive} setMotive={setMotive} type={type} setType={setType}
               />
             </div>
           </div>
@@ -51,13 +55,13 @@ export default function Banner({ location, setLocation, motive, setMotive, type,
         <div className='absolute bottom-0 left-0 right-0 p-5 mt-10'>
           <div className='xl:w-2/6 sm:mb-2'>
             <div className='hidden lg:block'>
-              <Tabbanner 
-                location={location} 
-                setLocation={setLocation} 
-                motive={motive} 
-                setMotive={setMotive} 
-                type={type} 
-                setType={setType} 
+              <Tabbanner
+                location={location}
+                setLocation={setLocation}
+                motive={motive}
+                setMotive={setMotive}
+                type={type}
+                setType={setType}
               />
             </div>
           </div>

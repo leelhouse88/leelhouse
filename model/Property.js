@@ -47,12 +47,19 @@ const ProjectSchema = new Schema(
             state: { type: String, required: true, default: 'Rajasthan' },
             country: { type: String, required: true, default: 'India' },
         },
-        size: { type: Number, default: 0 },
+
         floor: { type: Number, default: 0 },
         bedrooms: { type: Number, default: 0 },
         bathrooms: { type: Number, default: 0 },
-        landSize: { type: Number, default: 0 },
+        // landSize: { type: Number, default: 0 },
+        size: { type: Number, default: 0 },
+        length: { type: String, required: true, default: 0 },
+        bredth: { type: String, required: true, default: 0 },
+        facing: { type: String, required: true, default: "null" },
+        boundarywall: { type: Boolean, required: true, default: false },
+        verified: { type: Boolean, required: true, default: false },
         yearBuilt: { type: Number },
+
         purpose: {
             type: String,
             enum: ['Buy', 'Rent'],
@@ -68,7 +75,7 @@ const ProjectSchema = new Schema(
         energyRating: { type: String },
         description: { type: String },
         propertyType: { type: String },
-        yearRenovated: { type: Number },
+        // yearRenovated: { type: Number },
         heatingType: { type: String },
         coolingType: { type: String },
         parkingSpaces: { type: Number, default: 0 },
@@ -113,7 +120,7 @@ ProjectSchema.pre('save', async function (next) {
         // Check for existing slugs and append a suffix if necessary
         try {
             let existingSlugCount = await this.constructor.countDocuments({ slug: this.slug }).exec();
-            
+
             let slugAttempt = 1;
             while (existingSlugCount > 0) {
                 this.slug = `${slugBase}-${slugAttempt}`.toLowerCase();
@@ -129,6 +136,6 @@ ProjectSchema.pre('save', async function (next) {
 });
 
 const ProjectModel =
-    mongoose.models.Project22 || mongoose.model("Project22", ProjectSchema);
+    mongoose.models.Project24 || mongoose.model("Project24", ProjectSchema);
 
 export default ProjectModel;

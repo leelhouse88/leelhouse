@@ -130,6 +130,10 @@ export default function Card({ listingType, purpose, location, type }) {
                   <div className="absolute bg-gradient-to-t from-black top-0 bottom-0 left-0 right-0 flex justify-center items-center duration-300">
                   </div>
                   <button className='absolute top-0 left-0 m-3 bg-black/70 text-1 rounded-full px-3 py-1 font-bold text-[10px]'>For {item.purpose}</button>
+                  <button className='absolute top-0 right-0  bg-green-500 text-white rounded-bl-full px-4 py-1 text-sm font-semibold font-sans shadow-lg transition-transform transform hover:scale-105'>
+  {item.verified ? 'Verified' : ''}
+</button>
+
                   <button className='absolute bottom-0 left-0 m-3 h-6 text-sm px-2 text-white flex items-center gap-x-2 '>
                     <Home color='#0078db' width={20} />{item.type}
                   </button>

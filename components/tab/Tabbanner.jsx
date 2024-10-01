@@ -110,13 +110,13 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
             <h2 className="text-xl font-normal mb-5 text-center">Discover Properties</h2>
             <Tabs>
                 <TabList className="flex flex-wrap  mb-4">
-                    <Tab className="flex-1 py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Buy
                     </Tab>
-                    <Tab className="flex-1 py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Rent
                     </Tab>
-                    <Tab className="flex-1 py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Service
                     </Tab>
                 </TabList>
@@ -133,7 +133,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 value={formData.BuyLocation}
                                 onChange={handleInputChange}
                                 required
-                                className=" block w-ful h-full px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                                className=" block w-ful h-12 px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
 
                             >
                                 <option value="">Select City</option>
@@ -149,7 +149,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 name="BuyType"
                                 value={formData.BuyType}
                                 onChange={handleInputChange}
-                                className=" block w-full  h-full px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                                className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
                                 required
                             >
                                 <option value="">Select Type</option>
@@ -177,7 +177,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 value={formData.RentLocation}
                                 onChange={handleInputChange}
                                 required
-                                className=" block w-full  h-full px-3 py-3 border border-gray-300 rounded-md   focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                                className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md   focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
 
                             >
                                 <option value="">Select City</option>
@@ -193,7 +193,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 value={formData.RentType}
                                 onChange={handleInputChange}
                                 required
-                                 className=" block w-full h-full px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                                 className=" block w-full h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
 
                             >
                                 <option value="">Select Type</option>
@@ -222,7 +222,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 name="serviceLocation"
                                 value={formData.serviceLocation}
                                 onChange={handleInputChange}
-                                 className=" block w-full  h-full px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                                 className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
 
                             >
                                 <option value="">Select Ciity</option>
@@ -236,7 +236,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                 name="serviceType"
                                 value={formData.serviceType}
                                 onChange={handleInputChange}
-                               className=" block w-full  h-full px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
+                               className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
                             >
                                 <option value="">Select Service</option>
                                 {services.map((item) => (

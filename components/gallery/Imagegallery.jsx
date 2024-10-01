@@ -15,11 +15,11 @@ export default function ImageGallery({ item }) {
 
     return (
         <>
-            <div className=" flex flex-wrap gap-4">
+            <div className=" flex flex-wrap gap-4 px-5">
                 {item.map((image, index) => (
                     <div
                         key={index}
-                        className="relative h-36 w-36 md:col-span-1 sm:col-span-1 col-span-1 cursor-pointer border"
+                        className="relative h-36 w-36 md:col-span-1 sm:col-span-1 col-span-1 cursor-pointer "
                         onClick={() => handleClick(image)}
                     >
                         <Image

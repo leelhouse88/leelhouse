@@ -31,7 +31,13 @@ export default function Update2({ params }) {
         floor: '',
         bedrooms: '',
         bathrooms: '',
-        landSize: '',
+
+        length: '',
+        bredth: '',
+        facing: '',
+        boundarywall: '',
+        verified: '',
+
         yearBuilt: '',
         category: '',
         status: '',
@@ -45,7 +51,7 @@ export default function Update2({ params }) {
         parkingSpaces: 0,
         description: "",
         propertyType: "",
-        yearRenovated: 0,
+
         hasGarage: false,
         hasPool: false,
         hasGarden: false,
@@ -83,10 +89,16 @@ export default function Update2({ params }) {
                         type: project.type || '',
                         propertyname: project.propertyname || '',
                         size: project.size || '',
+
+                        length: project.length || '',
+                        bredth: project.bredth || '',
+                        facing: project.facing || '',
+                        boundarywall: project.boundarywall || '',
+                        verified: project.verified || '',
                         floor: project.floor || '',
                         bedrooms: project.bedrooms || '',
                         bathrooms: project.bathrooms || '',
-                        landSize: project.landSize || '',
+
                         yearBuilt: project.yearBuilt || '',
                         category: project.category || '',
                         status: project.status || '',
@@ -100,7 +112,7 @@ export default function Update2({ params }) {
                         parkingSpaces: project.parkingSpaces || 0,
                         description: project.description || "",
                         propertyType: project.propertyType || "",
-                        yearRenovated: project.yearRenovated || 0,
+
                         hasGarage: project.hasGarage || false,
                         hasPool: project.hasPool || false,
                         hasGarden: project.hasGarden || false,
@@ -349,7 +361,7 @@ export default function Update2({ params }) {
                                         </select>
                                     </div>
                                     <Input label="Pincode" name="pincode" value={formData.address.pincode} onChange={handleAddressChange} disabled={isUpdating} />
-                                    <Input label="State" disabled name="state"  value={formData.address.state} onChange={handleAddressChange} />
+                                    <Input label="State" disabled name="state" value={formData.address.state} onChange={handleAddressChange} />
                                     <Input label="Country" disabled name="country" value={formData.address.country} onChange={handleAddressChange} />
 
                                 </div>
@@ -360,10 +372,40 @@ export default function Update2({ params }) {
                                 <h4 className=' text-xl text-2 font-semibold mb-4'>Property Details</h4>
                                 <div className="grid lg:grid-cols-3 gap-4">
                                     <Input label="Size" name="size" type="number" value={formData.size} onChange={handleChange} disabled={isUpdating} />
+
+                                    <Input label="length" name="length" type="number" value={formData.length} onChange={handleChange} disabled={isUpdating} />
+                                    <Input label="bredth" name="bredth" type="number" value={formData.bredth} onChange={handleChange} disabled={isUpdating} />
+                                    <Input label="facing" name="facing" type="text" value={formData.facing} onChange={handleChange} disabled={isUpdating} />
+                                  
+                                    <div className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="boundarywall"
+                                            checked={formData.boundarywall}
+                                            onChange={handleChange}
+                                            disabled={isUpdating}
+                                            className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                        />
+                                        <label className="ml-2 text-sm text-gray-900">Has Boundarywall</label>
+                                    </div>
+
+                                    <div className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            name="verified"
+                                            checked={formData.verified}
+                                            onChange={handleChange}
+                                            disabled={isUpdating}
+                                            className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                        />
+                                        <label className="ml-2 text-sm text-gray-900">Has Verified</label>
+                                    </div>
+
+
                                     <Input label="Floor" name="floor" type="number" value={formData.floor} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="Bedrooms" name="bedrooms" type="number" value={formData.bedrooms} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="Bathrooms" name="bathrooms" type="number" value={formData.bathrooms} onChange={handleChange} disabled={isUpdating} />
-                                    <Input label="Land Size" name="landSize" type="number" value={formData.landSize} onChange={handleChange} disabled={isUpdating} />
+                                  
                                     <Input label="Year Built" name="yearBuilt" type="number" value={formData.yearBuilt} onChange={handleChange} disabled={isUpdating} />
 
                                 </div>
@@ -585,15 +627,7 @@ export default function Update2({ params }) {
                                         onChange={handleChange}
                                         disabled={isUpdating}
                                     />
-                                    <Input
-                                        label="Year Renovated"
-                                        name="yearRenovated"
-                                        type="number"
-                                        value={formData.yearRenovated}
-                                        onChange={handleChange}
-                                        disabled={isUpdating}
-                                    />
-
+                         
                                     <Input
                                         label="Heating Type"
                                         name="heatingType"

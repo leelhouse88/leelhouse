@@ -9,7 +9,7 @@ export default function Details({ item }) {
             <div className=" p-2 md:p-0">
 
                 <div className=" space-y-6">
-                   
+
                     <div className="bg-white p-5 shadow-md rounded-lg">
                         <div className="flex items-center gap-4">
                             <div className="bg-blue-100 p-2 rounded-full">
@@ -33,14 +33,21 @@ export default function Details({ item }) {
                         </div>
                     </div>
 
-                    <div className="bg-white shadow-md rounded-lg">
-                        <div className="p-4 border-b">
-                            <p className="text-xl font-semibold text-zinc-700">More About This Project</p>
+                    <div className="shadow-lg rounded-xl overflow-hidden relative">
+                        <div className=' absolute top-0 right-0 bg-yellow-500 px-4 rounded-bl-full text-white font-medium py-0.5 text-sm'>Highlight</div>
+                        <div className="p-6 bg-gradient-to-r from-[#004687] via-[#005ca8] to-[#0074cc] border-b-4 border-[#003366]">
+                            <p className="text-2xl font-bold text-white tracking-wide">
+                                About This Project
+                            </p>
                         </div>
-                        <div className="p-4">
-                            <p className="text-sm text-gray-600">{item.description}</p>
+                        <div className="p-6 bg-white">
+                            <p className="text-md text-gray-700 leading-relaxed">
+                                {item.description}
+                            </p>
                         </div>
                     </div>
+
+
 
                     <div className="bg-white shadow-md rounded-lg">
                         <div className="p-4 border-b">
@@ -57,7 +64,7 @@ export default function Details({ item }) {
 
                     <div className="bg-white shadow-md rounded-lg">
                         <div className="p-4 border-b">
-                            <p className="text-xl font-semibold text-zinc-700">Project Features</p>
+                            <p className="text-xl font-semibold text-zinc-700">Project Facility</p>
                         </div>
                         <div className="p-4 flex flex-wrap gap-4 text-sm text-gray-700">
                             {item.features.map((feature, index) => (

@@ -1,14 +1,17 @@
+
+
 "use client";
 import React, { useState, useEffect } from "react";
 import AllProjectCard from "@/components/card/allprojectpage/Card";
 import { Search } from "lucide-react";
-import LatestCard from "@/components/card/latest/Card";
 import BestDealCard from "@/components/card/bestdeal/Card";
 import Link from "next/link";
 import Loading from "@/components/Loader/Loading";
 import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
 
 export default function Collectionproject({ params }) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -23,7 +26,9 @@ export default function Collectionproject({ params }) {
     const [selectedTitle, setSelectedTitle] = useState(title);
     const [titles, setTitles] = useState(["All Category"]);
     const [loading, setLoading] = useState(true);
-    const itemsPerPage = 5;
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(1000000); // Default max price
+    const itemsPerPage = 1;
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -83,17 +88,14 @@ export default function Collectionproject({ params }) {
             sortedItems.sort((a, b) => b.price - a.price);
         }
 
-        if (selectedTitle !== "all category") {
-            sortedItems = sortedItems.filter(
-                (item) =>
-                    item.title.toLowerCase() === selectedTitle &&
-                    (!location || item.location.toLowerCase() === location.toLowerCase())
-            );
-        } else {
-            sortedItems = sortedItems.filter(
-                (item) => !location || item.location.toLowerCase() === location.toLowerCase()
-            );
-        }
+        // Filter by title, location, and price range
+        sortedItems = sortedItems.filter(
+            (item) =>
+                (selectedTitle === "all category" || item.title.toLowerCase() === selectedTitle) &&
+                (!location || item.location.toLowerCase() === location.toLowerCase()) &&
+                item.price >= minPrice &&
+                item.price <= maxPrice
+        );
 
         // Filter by search query
         if (searchQuery) {
@@ -106,7 +108,7 @@ export default function Collectionproject({ params }) {
 
         setItems(sortedItems);
         setCurrentPage(1);
-    }, [sortOrder, selectedTitle, location, searchQuery, rawItems]);
+    }, [sortOrder, selectedTitle, location, searchQuery, rawItems, minPrice, maxPrice]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -138,6 +140,11 @@ export default function Collectionproject({ params }) {
     const handleLocationChange = (e) => {
         setLocation(e.target.value);
         setCurrentPage(1);
+    };
+
+    const handlePriceChange = ([min, max]) => {
+        setMinPrice(min);
+        setMaxPrice(max);
     };
 
     const [metadata, setMetadata] = useState([]);
@@ -176,7 +183,7 @@ export default function Collectionproject({ params }) {
                             onChange={handleLocationChange}
                             className="bg-transparent text-white rounded focus:border-none focus:outline-none"
                         >
-                            <option value=""  className="text-black">All Locations</option>
+                            <option value="" className="text-black">All Locations</option>
                             {city.map((item) => (
                                 <option key={item._id} value={item} className="text-black">
                                     {item}
@@ -204,6 +211,7 @@ export default function Collectionproject({ params }) {
                 <div className="container mx-auto px-2 ">
                     <div className="grid lg:grid-cols-7 gap-4">
                         <div className="col-span-5 p-0 md:p-4">
+
                             <div className="bg-gray-100 rounded-t-md pb-2 px-4">
                                 <div className="flex flex-col md:flex-row md:justify-between md:items-center">
                                     <div className="mb-0 md:mb-2">
@@ -215,32 +223,45 @@ export default function Collectionproject({ params }) {
                                             {title} Project{location ? ` in ${location}` : ""}
                                         </p>
                                     </div>
-                                    <div className="flex justify-between md:justify-end w-full md:w-fit flex-row md:items-center gap-y-2 md:gap-x-4">
+
+                                    <div className="flex  flex-wrap justify-between gap-y-2 md:gap-x-4">
                                         <div className="text-xs flex items-center gap-x-2">
                                             <p className="hidden md:block">Sort by:</p>
                                             <select
                                                 value={sortOrder}
                                                 onChange={handleSortChange}
-                                                className="px-2 py-1 text-xs md:text-sm shadow rounded focus:border-none focus:outline-none"
+                                                className="px-2 py-1 text-xs text-gray-500 border border-gray-300 rounded-md focus:outline-none"
                                             >
                                                 <option value="Relevance">Relevance</option>
-                                                <option value="Price (Inc)">Price (Inc)</option>
-                                                <option value="Price (Dec)">Price (Dec)</option>
+                                                <option value="Price (Inc)">Price (Low to High)</option>
+                                                <option value="Price (Dec)">Price (High to Low)</option>
                                             </select>
                                         </div>
+
                                         <div className="text-xs flex items-center gap-x-2">
-                                            <p className="hidden md:block">Filter by:</p>
+                                            <p className="hidden md:block">Categories:</p>
                                             <select
                                                 value={selectedTitle}
                                                 onChange={handleTitleChange}
-                                                className="px-2 py-1 text-xs md:text-sm shadow rounded focus:border-none focus:outline-none"
+                                                className="px-2 py-1 text-xs text-gray-500 border border-gray-300 rounded-md focus:outline-none"
                                             >
                                                 {titles.map((item) => (
-                                                    <option key={item} value={item}>
-                                                        {item.charAt(0).toUpperCase() + item.slice(1)}
+                                                    <option key={item} value={item.toLowerCase()}>
+                                                        {item}
                                                     </option>
                                                 ))}
                                             </select>
+                                        </div>
+
+                                        <div className="price-range-slider flex flex-col items-start">
+                                            <p className="text-xs text-gray-600 mb-1">Price Range: ₹{minPrice} - ₹{maxPrice}</p>
+                                            <RangeSlider
+                                                min={0}
+                                                max={1000000} // Adjust according to your needs
+                                                value={[minPrice, maxPrice]}
+                                                onInput={handlePriceChange}
+                                                className="w-full"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -284,9 +305,9 @@ export default function Collectionproject({ params }) {
                         </div>
 
                         <div className="col-span-2 hidden lg:block mt-6">
-                        
+
                             <BestDealCard />
-                         
+
                         </div>
                     </div>
                 </div>

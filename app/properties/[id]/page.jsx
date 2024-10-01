@@ -15,6 +15,8 @@ import { Building, SquareChartGantt } from "lucide-react";
 import Whatsapp2 from "@/components/Whatsapp2/Whatsapp2";
 import Link from "next/link";
 import Image from "next/image";
+import Guide from "@/components/guide/Guide";
+import GraphChart from "@/components/graphchart/Graphchart";
 export default function SinglePage({ params }) {
     const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -101,7 +103,7 @@ export default function SinglePage({ params }) {
                         <Whatsapp2 />
                         <Link href="/page/contactus" >
                             <button className=' border gap-x-3 font-medium w-40 flex items-center justify-center px-3 py-2 rounded-md bg-2 text-white'>
-                               Contact Us
+                                Contact Us
                             </button>
                         </Link>
                     </div>
@@ -136,8 +138,10 @@ export default function SinglePage({ params }) {
 
                                 </div>
                             </div>
-                            <div className="container  mx-auto lg:w-[90%]">
+                            <div className="container  mx-auto lg:w-[90%] w-[95%]">
                                 <Details item={project} />
+                                <GraphChart/>
+                                <Guide />
                             </div>
                         </div>
                     </div>
@@ -152,13 +156,13 @@ export default function SinglePage({ params }) {
                         </div>
                     </div>
                 </div>
-                <h2 className=" font-semibold text-2xl underline underline-offset-4 mt-4 mb-2">Other Images</h2>
+                <h2 className=" font-semibold text-2xl underline underline-offset-4 mt-4 mb-2 px-4">Other Images</h2>
                 <div className=" overflow-scroll ">
                     <Imagegallery item={project.images} />
                 </div>
 
                 <div className=" my-5 px-2">
-                    <h3 className="text-xl font-semibold underline">Related Posts</h3>
+                    <h3 className="text-xl font-semibold underline px-3">Related Posts</h3>
                     <Carouselcard listingType={project.listingType} />
 
                     <Service />
