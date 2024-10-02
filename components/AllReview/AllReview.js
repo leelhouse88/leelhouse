@@ -47,7 +47,7 @@ export default function AllReview({ projectid }) {
     };
 
     return (
-        <div className="p-6 ">
+        <div className="p-6">
             {loading && <p className="text-gray-500">Loading reviews...</p>}
             {reviews.length === 0 && !loading && (
                 <p className="text-gray-500">No reviews available.</p>
@@ -63,7 +63,7 @@ export default function AllReview({ projectid }) {
                         key={review._id}
                         className="flex flex-col h-64 mx-2 p-6 border border-gray-200 rounded-xl bg-gradient-to-br from-white to-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out"
                     >
-                        <div className="flex items-center mb-4">
+                        <div className="flex gap-2 items-center mb-4">
                             {/* Avatar with initials */}
                             <div
                                 className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold ${colors[index % colors.length]}`}
@@ -74,8 +74,30 @@ export default function AllReview({ projectid }) {
                                 <h3 className="font-semibold line-clamp-1 text-lg capitalize text-gray-800">
                                     {review.name}
                                 </h3>
-                                <p className="text-sm text-gray-500 line-clamp-1 flex items-center">
-                                    <User className="w-4 h-4 mr-1" /> {review.email}
+                                <p className="text-sm text-gray-500 line-clamp-1 flex items-center relative">
+                                    <User className="w-4 h-4 mr-1" />
+                                    <span
+                                        className="cursor-pointer"
+                                        data-tooltip={review.email.length > 8 ? review.email : ''}
+                                        onMouseEnter={(e) => {
+                                            const tooltip = document.createElement('div');
+                                            tooltip.className = 'tooltip absolute bg-gray-700 text-white text-xs rounded py-1 px-2';
+                                            tooltip.innerText = review.email;
+                                            document.body.appendChild(tooltip);
+                                            const rect = e.target.getBoundingClientRect();
+                                            tooltip.style.top = `${rect.bottom + window.scrollY}px`;
+                                            tooltip.style.left = `${rect.left + window.scrollX}px`;
+                                            e.target.tooltip = tooltip; // Store the tooltip reference
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (e.target.tooltip) {
+                                                document.body.removeChild(e.target.tooltip);
+                                                delete e.target.tooltip; // Clean up reference
+                                            }
+                                        }}
+                                    >
+                                        {review.email.length > 8 ? `${review.email.slice(0, 15)}...` : review.email}
+                                    </span>
                                 </p>
                             </div>
                         </div>
