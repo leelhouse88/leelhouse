@@ -17,6 +17,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Guide from "@/components/guide/Guide";
 import GraphChart from "@/components/graphchart/Graphchart";
+import Review from "@/components/review/Review";
+import AllReview from "@/components/AllReview/AllReview";
 export default function SinglePage({ params }) {
     const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -140,7 +142,7 @@ export default function SinglePage({ params }) {
                             </div>
                             <div className="container  mx-auto lg:w-[90%] w-[95%]">
                                 <Details item={project} />
-                                <GraphChart/>
+                                <GraphChart />
                                 <Guide />
                             </div>
                         </div>
@@ -160,6 +162,14 @@ export default function SinglePage({ params }) {
                 <div className=" overflow-scroll ">
                     <Imagegallery item={project.images} />
                 </div>
+
+
+                <div className="  grid lg:grid-cols-3">
+                   <div className=" lg:col-span-1"> <Review projectid={project._id} /></div>
+                   <div className="   lg:col-span-2 overflow-hidden"> <AllReview projectid={project._id} /></div>
+                </div>
+
+
 
                 <div className=" my-5 px-2">
                     <h3 className="text-xl font-semibold underline px-3">Related Posts</h3>

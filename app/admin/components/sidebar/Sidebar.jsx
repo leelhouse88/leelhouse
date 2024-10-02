@@ -21,6 +21,7 @@ export default function Sidebar() {
     { name: 'Contact Request', href: '/admin/page/contact', icon: <Contact size={20} /> },
     { name: 'Enquiry', href: '/admin/page/enquiry', icon: <Info size={20} /> },
     { name: 'Offer', href: '/admin/page/offer', icon: <Ticket size={20} /> },
+    { name: 'Reviews', href: '/admin/page/review', icon: <User size={20} /> },
 
   ];
 
@@ -36,7 +37,7 @@ export default function Sidebar() {
           </button>
         </div>
 
-        <ul className="space-y-1">
+        <ul className="space-y-1 overflow-y-scroll  h-[80vh]">
           {menuItems.map((item) => (
             <li key={item.href}>
               <Link
