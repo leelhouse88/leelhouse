@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Menu, XCircleIcon, Home ,Heart,ServerIcon} from 'lucide-react';
+import { Menu, XCircleIcon, Home ,Heart,ServerIcon, FileText, PlusCircle} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 export default function Sidebar() {
@@ -11,7 +11,8 @@ export default function Sidebar() {
     { name: 'Dashboard', href: '/user', icon: <Home size={20} /> },
     { name: 'My Wishlist', href: '/user/page/wishlist', icon: <Heart size={20} /> },
     { name: 'Service Request', href: '/user/page/service', icon: <ServerIcon size={20} /> },
-    { name: 'Add Property', href: '/user/page/addnew', icon: <ServerIcon size={20} /> },
+    { name: 'Add Property', href: '/user/page/addnew', icon: <PlusCircle size={20} /> },
+    { name: 'All Property', href: '/user/page/post', icon: <FileText size={20} /> },
 
 
   ];

@@ -6,29 +6,45 @@ import Select from '@/app/admin/components/Input/Select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 export default function Addnew() {
+    const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         location: '',
         price: '',
         metatitle: '',
-        metadescription:'',
+        metadescription: '',
         type: '',
-        propertyname:''
+        propertyname: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const router = useRouter();
 
-    const validateForm = useCallback(() => {
-        const { title, location, price, metatitle,metadescription ,type,propertyname} = formData;
-        return title && location && price && metatitle,metadescription ,type,propertyname;
-    }, [formData]);
+    const useremail = session?.user?.email;
 
     useEffect(() => {
-        setIsFormValid(validateForm());
-    }, [formData, validateForm]);
+        if (useremail) {
+            axios.get(`/api/admin/find-admin-byemail/${useremail}`)
+                .then(response => {
+                    setUserData(response.data._id);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error("Error fetching user data:", error);
+                    setLoading(false);
+                });
+        }
+    }, [useremail]);
+
+    const validateForm = useCallback(() => {
+        const { title, location, price, metatitle, metadescription, type, propertyname } = formData;
+        return title && location && price && metatitle && metadescription && type && propertyname;
+    }, [formData]);
 
     useEffect(() => {
         setIsFormValid(validateForm());
@@ -38,7 +54,7 @@ export default function Addnew() {
         const { name, value } = e.target;
         setFormData(prevData => ({
             ...prevData,
-            [name]: value
+            [name]: value,
         }));
     };
 
@@ -47,25 +63,33 @@ export default function Addnew() {
         setIsSubmitting(true);
         setMessage('');
 
+        if (!userData) {
+            setMessage("Admin ID not available. Please try again later.");
+            setIsSubmitting(false);
+            return;
+        }
+
+        const finalFormData = { ...formData, adminid: userData };
+
         try {
-            const response = await axios.post('/api/project/create', formData, {
+            const response = await axios.post('/api/project/create', finalFormData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             if (response.status === 201) {
-                toast.success("Property Added Successfully")
+                toast.success("Property Added Successfully");
                 const newProjectId = response.data.data.id;
-                router.push(`addnew/update/${newProjectId}`)
+                router.push(`addnew/update/${newProjectId}`);
                 setFormData({
                     title: '',
                     location: '',
                     price: '',
                     type: '',
                     metatitle: '',
-                    metadescription:'',
-                    propertyname:''
+                    metadescription: '',
+                    propertyname: ''
                 });
             } else {
                 setMessage(`Error: ${response.data.message}`);

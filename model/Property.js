@@ -5,6 +5,10 @@ const toUpperCase = (str) => str.toUpperCase();
 
 const ProjectSchema = new Schema(
     {
+        adminid: {
+            type: String,
+            required: true,
+        },
         title: {
             type: String,
             required: true,
@@ -136,6 +140,6 @@ ProjectSchema.pre('save', async function (next) {
 });
 
 const ProjectModel =
-    mongoose.models.Project24 || mongoose.model("Project24", ProjectSchema);
+    mongoose.models.Project25 || mongoose.model("Project25", ProjectSchema);
 
 export default ProjectModel;
