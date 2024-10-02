@@ -27,7 +27,7 @@ export default function Collectionproject({ params }) {
     const [titles, setTitles] = useState(["All Category"]);
     const [loading, setLoading] = useState(true);
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000); // Default max price
+    const [maxPrice, setMaxPrice] = useState(100000000); // Default max price
     const itemsPerPage = 1;
 
     const handleSearchChange = (e) => {
@@ -257,7 +257,7 @@ export default function Collectionproject({ params }) {
                                             <p className="text-xs text-gray-600 mb-1">Price Range: ₹{minPrice} - ₹{maxPrice}</p>
                                             <RangeSlider
                                                 min={0}
-                                                max={1000000} // Adjust according to your needs
+                                                max={100000000} // Adjust according to your needs
                                                 value={[minPrice, maxPrice]}
                                                 onInput={handlePriceChange}
                                                 className="w-full"

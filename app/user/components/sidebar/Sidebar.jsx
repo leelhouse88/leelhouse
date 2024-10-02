@@ -11,6 +11,7 @@ export default function Sidebar() {
     { name: 'Dashboard', href: '/user', icon: <Home size={20} /> },
     { name: 'My Wishlist', href: '/user/page/wishlist', icon: <Heart size={20} /> },
     { name: 'Service Request', href: '/user/page/service', icon: <ServerIcon size={20} /> },
+    { name: 'Add Property', href: '/user/page/addnew', icon: <ServerIcon size={20} /> },
 
 
   ];

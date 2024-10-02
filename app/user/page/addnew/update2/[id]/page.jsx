@@ -35,7 +35,7 @@ export default function Update2({ params }) {
         length: '',
         bredth: '',
         facing: '',
-        boundarywall: '',
+        boundarywall: false,
         verified: false,
 
         yearBuilt: '',
@@ -93,7 +93,7 @@ export default function Update2({ params }) {
                         length: project.length || '',
                         bredth: project.bredth || '',
                         facing: project.facing || '',
-                        boundarywall: project.boundarywall || '',
+                        boundarywall: project.boundarywall || false,
                         verified: project.verified || false,
                         floor: project.floor || '',
                         bedrooms: project.bedrooms || '',
@@ -389,7 +389,7 @@ export default function Update2({ params }) {
                                         <label className="ml-2 text-sm text-gray-900">Has Boundarywall</label>
                                     </div>
 
-                                    <div className="flex items-center">
+                                    {/* <div className="flex items-center">
                                         <input
                                             type="checkbox"
                                             name="verified"
@@ -399,7 +399,7 @@ export default function Update2({ params }) {
                                             className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                         />
                                         <label className="ml-2 text-sm text-gray-900">Has Verified</label>
-                                    </div>
+                                    </div> */}
 
 
                                     <Input label="Floor" name="floor" type="number" value={formData.floor} onChange={handleChange} disabled={isUpdating} />

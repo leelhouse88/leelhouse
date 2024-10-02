@@ -62,8 +62,8 @@ export default function Card({ listingType, purpose, location, type }) {
 
         const filteredProperties = properties.filter(property =>
           (!listingType || property.listingType === listingType) &&
-          (!location || property.location === location)&&
-          (!purpose || property.purpose === purpose)&&
+          (!location || property.location === location) &&
+          (!purpose || property.purpose === purpose) &&
           (!type || property.title === type)
         );
 
@@ -109,8 +109,8 @@ export default function Card({ listingType, purpose, location, type }) {
 
   return (
     <>
-     <Toaster color="red" />
-    
+      <Toaster color="red" />
+
       <Carousel responsive={responsive} infinite={true} autoPlay removeArrowOnDeviceType={["tablet", "mobile"]}>
         {totalProperties.length > 0 ? (
           totalProperties.map((item) => (
@@ -130,9 +130,9 @@ export default function Card({ listingType, purpose, location, type }) {
                   <div className="absolute bg-gradient-to-t from-black top-0 bottom-0 left-0 right-0 flex justify-center items-center duration-300">
                   </div>
                   <button className='absolute top-0 left-0 m-3 bg-black/70 text-1 rounded-full px-3 py-1 font-bold text-[10px]'>For {item.purpose}</button>
-                  <button className='absolute top-0 right-0  bg-green-500 text-white rounded-bl-full px-4 py-1 text-sm font-semibold font-sans shadow-lg transition-transform transform hover:scale-105'>
-  {item.verified ? 'Verified' : ''}
-</button>
+                  <button className='absolute top-0 right-0  bg-green-500 text-white rounded-bl-full px-4 py-1 text-sm font-semibold font-sans shadow-lg'>
+                    {item.verified ? 'Verified' : 'Not Verified'}
+                  </button>
 
                   <button className='absolute bottom-0 left-0 m-3 h-6 text-sm px-2 text-white flex items-center gap-x-2 '>
                     <Home color='#0078db' width={20} />{item.type}
@@ -143,14 +143,14 @@ export default function Card({ listingType, purpose, location, type }) {
                       handleAddToWishlist(item._id);
                     }}
                     className='absolute bottom-0 right-0 m-3 h-6 text-sm px-2 text-white flex items-center gap-x-2 hover:scale-125 duration-300'
-                    >
+                  >
                     <Heart color='#ff0000' width={20} />
                   </button>
                 </div>
                 <div className="flex h-60 flex-col justify-between">
                   <div className="flex flex-col h-full justify-between">
                     <div className='p-4'>
-                  
+
                       <h3 className='text-xl font-bold text-'>{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(item.price).replace('₹', '')} ₹</h3>
                       <p className='font-semibold text-lg'>{item.propertyname}</p>
                       <div className='flex items-center gap-x-2 mt-2 mb-1'>
