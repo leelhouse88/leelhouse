@@ -19,12 +19,6 @@ export default function SinglePage({ params }) {
 
 
 
-  useEffect(() => {
-    fetchOffers();
-  }, []);
-
-
-
 
   const id = params.id;
   const router = useRouter();
