@@ -66,7 +66,7 @@ export default function AllReview({ projectid }) {
                         <div className="flex gap-2 items-center mb-4">
                             {/* Avatar with initials */}
                             <div
-                                className={`w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold ${colors[index % colors.length]}`}
+                                className={`w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center text-white text-lg font-bold ${colors[index % colors.length]}`}
                             >
                                 {review.name.charAt(0).toUpperCase()}
                             </div>
