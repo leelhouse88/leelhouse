@@ -23,7 +23,7 @@ export default function Footer() {
                             <div className=' mb-3 h-12 '>
                                 <Image alt='' src="/logo/Group 349 (1).svg" width={200} height={38.625} />
                             </div>
-                            <p className='mb-6 text-sm leading-6'>The site provides advanced search filters and personalized recommendations to match buyers with their ideal homes.</p>
+                            <p className='mb-6 text-sm leading-6'>At LeelHouse, we specialize in helping you buy and sell properties with ease. Whether you&apos;re searching for your dream home or looking to list your property, we provide trusted, personalized service. LeelHouse – your partner in real estate success!</p>
                             <ul className='flex gap-4'>
                                 <li><Link href=""><Facebook color='#7F7F7F' width={20} /></Link></li>
                                 <li><Link href=""><Instagram color='#7F7F7F' width={20} /></Link></li>
@@ -34,8 +34,8 @@ export default function Footer() {
                         </div>
                         <div className="lg:col-span-2 md:col-span-2 ">
                             <h4 className='text-lg md:mb-4 font-semibold md:h-12 mb-2'>Contact Info</h4>
-                            <p className='text-sm mb-2 leading-6'>Unicoder Design Agency 301 The Greenhouse, Custard Factory, London, E3 8DY.</p>
-                            <p className='text-sm mb-2'>+91-9828988333</p>
+                            <p className='text-sm mb-2 leading-6'>Near Vision library, Patrakar colony, Dholai, Jaipur, Mohanpura, Rajasthan 302020</p>
+                            <p className='text-sm mb-2'>91-9828988333</p>
                             <p className='text-sm mb-2'>leelproperty21@gmail.com</p>
                         </div>
                         <div className="lg:col-span-2 md:col-span-2 ">
@@ -60,7 +60,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className='text-center py-2 border-t border-gray-700 text-xs'>
-                        © 2022 GharDhundo.com. All rights reserved.
+                        © 2022 leelhouse.com. All rights reserved.
                     </div>
                 </div>
 
