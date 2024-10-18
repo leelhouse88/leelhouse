@@ -21,35 +21,40 @@ export default function Banner({ location, setLocation, motive, setMotive, type,
     <div className='relative h-full bg-banner overflow-hidden'>
       <div className='relative container lg:w-5/6 mx-auto py-5 lg:py-8 overflow-hidden h-full'>
         {/* Button to open popup on small screens */}
-        <div  onClick={handleOpenPopup} className='lg:hidden cursor-pointer  text-center bg-[#005ca8] mx-2 p-2 rounded-t-full absolute bottom-0 right-0 left-0 z-40'>
+        <div  onClick={handleOpenPopup} className='lg:hidden cursor-pointer  text-center  mb-1 mx-2 p-2 absolute bottom-0 right-0 left-0 z-40'>
 
-          <button
-           
-            className='flex items-center justify-center bg-transparent   text-white font-medium text-md mx-auto px-6 py-2 rounded-md hover:shadow-lg transition-all duration-200'
+        <button
+            className='flex items-center border border-gray-950 gap-5 w-full bg-white  font-medium text-lg px-6 py-2 rounded-md transition-transform transform hover:scale-105 duration-300 ease-in-out'
           >
-            <span className='mr-2 animate-bounce text-xl'>🔍</span>
-          <span className=' underline font-sans underline-offset-2 text-[18px]'>Click Here to Search Properties</span>
+            <span className='text-xl animate-pulse'>🔍</span>
+            <span className=' font-normal underline underline-offset-4 text-[15px] text-gray-600'>Search Properties . . .</span>
           </button>
-
 
         </div>
 
         {/* Tab banner displayed as popup on small screens */}
         {isPopupOpen && (
-          <div className='fixed px-4 inset-0 flex items-center justify-center z-50 bg-black/50'>
-            <div className='bg-white p-5 rounded-lg w-full max-w-lg mx-auto relative'>
-              <button
-                onClick={handleClosePopup}
-                className='absolute top-2 right-2 text-black text-xl'
-              >
-                &times;
-              </button>
-
-              <Tabbanner
-                location={location} setLocation={setLocation} motive={motive} setMotive={setMotive} type={type} setType={setType}
-              />
-            </div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
+          <div className=" p-6 sm:p-8 md:p-10 rounded-lg w-full  mx-auto shadow-lg">
+            <button
+              onClick={handleClosePopup}
+              className="absolute top-3 right-3 z-50 bg-2 w-8 h-8 text-white rounded-full text-2xl focus:outline-none"
+            >
+              &times;
+            </button>
+        
+            {/* Modal content */}
+            <Tabbanner
+              location={location}
+              setLocation={setLocation}
+              motive={motive}
+              setMotive={setMotive}
+              type={type}
+              setType={setType}
+            />
           </div>
+        </div>
+        
         )}
 
         <div className='absolute bottom-0 left-0 right-0 p-5 mt-10'>

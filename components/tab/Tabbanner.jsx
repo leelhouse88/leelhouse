@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+
 export default function Tabbanner({ location, setLocation, motive, setMotive, type, setType }) {
     const [city, setCity] = useState([]);
     const [services, setServices] = useState([]);
@@ -34,20 +35,17 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
         const location = formData[`${searchType}Location`];
         const type = formData[`${searchType}Type`];
 
-        // Only proceed if both location and type have values
         if (location) {
             setLocation(location);
             setType(type);
             setMotive(searchType);
         }
-        toast.success("Search result")
+        toast.success("Search result");
     };
-
 
     const handleServiceSearch = (e) => {
         e.preventDefault();
         const { serviceLocation, serviceType } = formData;
-
 
         if (serviceLocation && serviceType) {
             router.push(`/page/service/${serviceType},${serviceLocation}`);
@@ -58,17 +56,13 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
         }
     };
 
-
     useEffect(() => {
         const fetchCity = async () => {
-
             try {
                 const response = await axios.get("/api/project/findallcity/project");
-                setCity(response.data.cities)
+                setCity(response.data.cities);
             } catch (error) {
                 console.error("Error fetching data:", error);
-            } finally {
-
             }
         };
 
@@ -77,14 +71,11 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
 
     useEffect(() => {
         const fetchService = async () => {
-
             try {
                 const response = await axios.get('/api/AddService/getdata/addservice');
                 setServices(response.data.fetch);
             } catch (error) {
                 console.error("Error fetching data:", error);
-            } finally {
-
             }
         };
 
@@ -92,7 +83,6 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
     }, []);
 
     useEffect(() => {
-
         axios.get('/api/category/fetchall/category')
             .then(response => {
                 setOptions(response.data.fetch);
@@ -104,62 +94,65 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
             });
     }, []);
 
+    const handlePropertyTypeChange = (type, searchType) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [`${searchType}Type`]: type,
+        }));
+    };
+
     return (
-        <div className="bg-white shadow-lg rounded-2xl p-2 md:p-6 mx-auto max-w-4xl">
-             <Toaster />
-            <h2 className="text-xl font-normal mb-5 text-center">Discover Properties</h2>
+        <div className=" lg:bg-white bg-white fixed flex flex-col justify-center lg:relative top-0 left-0 right-0 bottom-0 shadow-lg rounded-2xl p-2 md:p-6 mx-auto max-w-4xl">
+            <Toaster />
+            <h2 className="lg:text-xl py-2 lg:py-0 rounded-md text-3xl bg-2 lg:text-black text-white lg:bg-white font-normal lg:mb-5 mb-8 text-center">Discover Properties</h2>
             <Tabs>
-                <TabList className="flex flex-wrap  mb-4">
-                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                <TabList className="flex flex-wrap lg:mb-4 mb-8">
+                    <Tab className="flex-1 py-1 md:py-1 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Buy
                     </Tab>
-                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                    <Tab className="flex-1 py-1 md:py-1 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Rent
                     </Tab>
-                    <Tab className="flex-1 py-1 md:py-3 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
+                    <Tab className="flex-1 py-1 md:py-1 px-4 text-center cursor-pointer transition-colors duration-300 focus:outline-none bg-gray-200 rounded-md mx-1" selectedClassName="text-white bg-2">
                         Service
                     </Tab>
                 </TabList>
 
+                {/* Buy Tab */}
                 <TabPanel>
                     <form onSubmit={(e) => handleSearch(e, 'Buy')}>
-
-
                         <div className="flex flex-col gap-4">
+                            
 
-                            <label htmlFor="RentLocation" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> City</label>
+                            <label className="block -mb-[14px] text-[12px] font-medium lg:text-black">Property Type</label>
+                            <div className="flex flex-wrap gap-2">
+                                {options.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange(item.name, 'Buy')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === item.name ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        {item.name}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <label htmlFor="BuyLocation" className="block -mb-[14px] text-[12px] font-medium text-black"> City</label>
                             <select
                                 name="BuyLocation"
                                 value={formData.BuyLocation}
                                 onChange={handleInputChange}
                                 required
-                                className=" block w-ful h-12 px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-
+                                className="block w-full h-8 px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
                             >
                                 <option value="">Select City</option>
                                 {city.map((item) => (
-                                    <option key={item.id} selected value={item}>{item}</option>
+                                    <option key={item.id} value={item}>{item}</option>
                                 ))}
-
-                            </select>
-
-
-                            <label htmlFor="BuyType" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> Property Type</label>
-                            <select
-                                name="BuyType"
-                                value={formData.BuyType}
-                                onChange={handleInputChange}
-                                className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md    focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-                                required
-                            >
-                                <option value="">Select Type</option>
-                                {options.map((item) => (
-                                    <option key={item.id} value={item.name}>{item.name}</option>
-                                ))}
-
                             </select>
                         </div>
-                        <div className="flex justify-center mt-4">
+                        <div className="flex justify-center lg:mt-4 mt-12">
                             <button type="submit" className="w-full flex font-medium justify-center items-center gap-x-2 py-3 px-4 bg-2 text-white rounded-lg hover:bg-[#ffaa3e] transition-colors duration-300 focus:outline-none">
                                 Search
                             </button>
@@ -167,90 +160,84 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                     </form>
                 </TabPanel>
 
+                {/* Rent Tab */}
                 <TabPanel>
                     <form onSubmit={(e) => handleSearch(e, 'Rent')}>
-                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-4">
+                           
+                            <label className="block -mb-[14px] text-[12px] font-medium text-black">Property Type</label>
+                            <div className="flex flex-wrap gap-2">
+                                {options.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange(item.name, 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === item.name ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        {item.name}
+                                    </button>
+                                ))}
+                            </div>
 
-
-                            <label htmlFor="RentLocation" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> City</label>
-                            <select name="RentLocation"
+                            <label htmlFor="RentLocation" className="block -mb-[14px] text-[12px] font-medium text-black"> City</label>
+                            <select
+                                name="RentLocation"
                                 value={formData.RentLocation}
                                 onChange={handleInputChange}
                                 required
-                                className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md   focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-
+                                className="block w-full h-8 px-3 py-1  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
                             >
                                 <option value="">Select City</option>
                                 {city.map((item) => (
-                                    <option key={item.id} selected value={item}>{item}</option>
+                                    <option key={item.id} value={item}>{item}</option>
                                 ))}
                             </select>
 
-
-                            <label htmlFor="RentType" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> Property Type</label>
-                            <select
-                                name="RentType"
-                                value={formData.RentType}
-                                onChange={handleInputChange}
-                                required
-                                 className=" block w-full h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-
-                            >
-                                <option value="">Select Type</option>
-
-                                {options.map((item) => (
-                                    <option key={item.id} value={item.name}>{item.name}</option>
-                                ))}
-                            </select>
                         </div>
-                        <div className="flex justify-center mt-4">
-                            <button type="submit"  className="w-full flex font-medium justify-center items-center gap-x-2 py-3 px-4 bg-2 text-white rounded-lg hover:bg-[#ffaa3e] transition-colors duration-300 focus:outline-none">
+                        <div className="flex justify-center  lg:mt-4 mt-12">
+                            <button type="submit" className="w-full flex font-medium justify-center items-center gap-x-2 py-3 px-4 bg-2 text-white rounded-lg hover:bg-[#ffaa3e] transition-colors duration-300 focus:outline-none">
                                 Search
                             </button>
                         </div>
                     </form>
                 </TabPanel>
 
+                {/* Service Tab */}
                 <TabPanel>
                     <form onSubmit={handleServiceSearch}>
-                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-4">
+                         
 
-                            <label htmlFor="ger" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> City</label>
+                            <label className="block -mb-[14px] text-[12px] font-medium text-black">Service Type</label>
+                            <div className="flex flex-wrap gap-2">
+                                {services.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange(item.title, 'service')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.serviceType === item.title ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        {item.title}
+                                    </button>
+                                ))}
+                            </div>
 
+                            <label htmlFor="serviceLocation" className="block -mb-[14px] text-[12px] font-medium text-black"> City</label>
                             <select
-                                id="ger"
+                                id="serviceLocation"
                                 name="serviceLocation"
                                 value={formData.serviceLocation}
                                 onChange={handleInputChange}
-                                 className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-
+                                className="block w-full h-8 px-3 py-1  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
                             >
-                                <option value="">Select Ciity</option>
+                                <option value="">Select City</option>
                                 {city.map((item) => (
-                                    <option key={item.id} selected value={item}>{item}</option>
+                                    <option key={item.id} value={item}>{item}</option>
                                 ))}
-                            </select>
-
-                            <label htmlFor="serviceType" className='block -mb-[14px] text-[12px] font-medium text-gray-700'> Service Type</label>
-                            <select
-                                name="serviceType"
-                                value={formData.serviceType}
-                                onChange={handleInputChange}
-                               className=" block w-full  h-12 px-3 py-3 border border-gray-300 rounded-md  focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm"
-                            >
-                                <option value="">Select Service</option>
-                                {services.map((item) => (
-
-                                    <option key={item.id} value={item.title}>{item.title}</option>
-                                ))}
-
                             </select>
                         </div>
-                        <div className="flex justify-center mt-4">
-                            <button
-                                type="submit"
-                                className="w-full flex font-medium justify-center items-center gap-x-2 py-3 px-4 bg-2 text-white rounded-lg hover:bg-[#ffaa3e] transition-colors duration-300 focus:outline-none">
-                            
+                        <div className="flex justify-center  lg:mt-4 mt-12">
+                            <button type="submit" className="w-full flex font-medium justify-center items-center gap-x-2 py-3 px-4 bg-2 text-white rounded-lg hover:bg-[#ffaa3e] transition-colors duration-300 focus:outline-none">
                                 Search
                             </button>
                         </div>

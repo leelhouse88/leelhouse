@@ -27,6 +27,10 @@ export default function Update2({ params }) {
         type: '',
         propertyname: '',
 
+        sellertype: '',  // Add sellertype here
+        name: '',  // For Owner
+        percentage: '',  // For Broker
+
         size: '',
         floor: '',
         bedrooms: '',
@@ -35,7 +39,7 @@ export default function Update2({ params }) {
         length: '',
         bredth: '',
         facing: '',
-        boundarywall: '',
+        boundarywall: false,
         verified: false,
 
         yearBuilt: '',
@@ -88,12 +92,19 @@ export default function Update2({ params }) {
                         price: project.price || '',
                         type: project.type || '',
                         propertyname: project.propertyname || '',
+
+                        sellertype: project.sellertype || '',
+                        name: project.name || '',
+                        percentage: project.percentage || '',
+
+
+
                         size: project.size || '',
 
                         length: project.length || '',
                         bredth: project.bredth || '',
                         facing: project.facing || '',
-                        boundarywall: project.boundarywall || '',
+                        boundarywall: project.boundarywall || false,
                         verified: project.verified || false,
                         floor: project.floor || '',
                         bedrooms: project.bedrooms || '',
@@ -304,6 +315,48 @@ export default function Update2({ params }) {
                                         <Input label="Property Name" name="propertyname" value={formData.propertyname}
                                             onChange={handleChange} />
                                     </div>
+
+
+{/* Conditional input based on seller type */}
+{formData.sellertype === 'Onwer' && (
+                                        <div className=''>
+                                            <Input
+                                                name="name"
+                                                label="Owner Name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                type="text"
+                                            />
+                                        </div>
+                                    )}
+
+                                    {formData.sellertype === 'Broker' && (
+                                        <>
+                                            <div className=''>
+                                                <Input
+                                                    name="name"
+                                                    label="Broker Name"
+                                                    value={formData.name}
+                                                    onChange={handleChange}
+                                                    type="text"
+                                                />
+                                            </div>
+                                            <div className=''>
+                                                <Input
+                                                    name="percentage"
+                                                    label="Broker Percentage"
+                                                    value={formData.percentage}
+                                                    onChange={handleChange}
+                                                    type="number"
+                                                    step="0.01"
+                                                />
+                                            </div>
+                                        </>
+                                    )}
+
+
+
+
                                 </div>
                             </div>
                             {/* Address */}
@@ -376,7 +429,7 @@ export default function Update2({ params }) {
                                     <Input label="length" name="length" type="number" value={formData.length} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="bredth" name="bredth" type="number" value={formData.bredth} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="facing" name="facing" type="text" value={formData.facing} onChange={handleChange} disabled={isUpdating} />
-                                  
+
                                     <div className="flex items-center">
                                         <input
                                             type="checkbox"
@@ -405,7 +458,7 @@ export default function Update2({ params }) {
                                     <Input label="Floor" name="floor" type="number" value={formData.floor} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="Bedrooms" name="bedrooms" type="number" value={formData.bedrooms} onChange={handleChange} disabled={isUpdating} />
                                     <Input label="Bathrooms" name="bathrooms" type="number" value={formData.bathrooms} onChange={handleChange} disabled={isUpdating} />
-                                  
+
                                     <Input label="Year Built" name="yearBuilt" type="number" value={formData.yearBuilt} onChange={handleChange} disabled={isUpdating} />
 
                                 </div>
@@ -627,7 +680,7 @@ export default function Update2({ params }) {
                                         onChange={handleChange}
                                         disabled={isUpdating}
                                     />
-                         
+
                                     <Input
                                         label="Heating Type"
                                         name="heatingType"

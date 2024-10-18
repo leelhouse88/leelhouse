@@ -16,8 +16,35 @@ export default function SinglePage({ params }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState("");
+  const [users, setUsers] = useState([]);
+  const [adminName, setAdminName] = useState(""); // To store the admin's name
 
+  const router = useRouter();
+  const id = params.id;
 
+  // Fetch users and check for matching admin
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('/api/admin/getdata/admin');
+        const fetchedUsers = response.data.fetch;
+
+        setUsers(fetchedUsers);
+
+        // Find the user with the matching _id
+        if (project && project.adminid) {
+          const matchingUser = fetchedUsers.find(user => user._id === project.adminid);
+          if (matchingUser) {
+            setAdminName(matchingUser.name); // Set the admin's name if matched
+          }
+        }
+      } catch (err) {
+        setError('Error fetching user data');
+      }
+    };
+
+    fetchUsers();
+  }, [project]); // Re-run when project is set
 
   useEffect(() => {
     fetchOffers();
@@ -33,8 +60,6 @@ export default function SinglePage({ params }) {
     }
   };
 
-
-
   const handleAddOffer = async () => {
     if (!project._id) {
       toast.error("Project ID is missing. Please select a project.");
@@ -42,7 +67,6 @@ export default function SinglePage({ params }) {
     }
 
     try {
-
       await axios.patch("/api/offer/update", {
         id: selectedOffer,
         productid: project._id,
@@ -51,19 +75,12 @@ export default function SinglePage({ params }) {
       setIsPopupOpen(false);
     } catch (error) {
       console.error("Error adding offer:", error);
-      if (error.response && error.response.data && error.response.data.message) {
-        toast.error(`Failed to add offer: ${error.response.data.message}`);
-      } else {
-        toast.error("Failed to add offer. Please try again later.");
-      }
+      toast.error("Failed to add offer. Please try again later.");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
-
-  const id = params.id;
-  const router = useRouter();
   useEffect(() => {
     const fetchProject = async () => {
       try {
@@ -84,15 +101,13 @@ export default function SinglePage({ params }) {
     if (confirmed) {
       try {
         await axios.delete(`/api/project/delete/${id}`);
-
         alert("Project deleted successfully");
-        router.push("/admin/page/property")
+        router.push("/admin/page/property");
       } catch (error) {
         alert("Failed to delete project");
       }
     }
   };
-
 
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
@@ -101,7 +116,6 @@ export default function SinglePage({ params }) {
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
-
 
   if (loading) {
     return <Loading />;
@@ -130,8 +144,8 @@ export default function SinglePage({ params }) {
         </button>
       </div>
 
-
       <Toaster />
+
       {isPopupOpen && (
         <div className='fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm transition-all duration-300'>
           <div className='bg-white p-8 rounded-lg w-full max-w-lg mx-auto relative shadow-lg transform transition-transform duration-300 scale-95'>
@@ -141,9 +155,7 @@ export default function SinglePage({ params }) {
             >
               &times;
             </button>
-
             <h2 className='text-xl font-semibold text-center mb-4 text-gray-700'>Add to Offer</h2>
-
             <select
               id="offerSelect"
               className="block w-full p-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
@@ -166,23 +178,49 @@ export default function SinglePage({ params }) {
             </button>
           </div>
         </div>
-
       )}
 
+      {/* Display the admin name here */}
+    
+      <div className="mt-5 container mx-auto lg:w-[90%] p-6 bg-white rounded-lg shadow-lg">
+    <h1 className="text-2xl font-bold text-zinc-900 mb-2 flex justify-between">
+        {project.propertyname}
+        <span className="text-xl">
+            Uploaded by: <span className="font-semibold">{adminName ? adminName : "Admin not found"}</span>
+        </span>
+    </h1>
+    
+    <h2 className="text-base text-gray-500 mb-4">
+        {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
+    </h2>
 
+    <h3 className="text-3xl font-semibold text-zinc-900 mt-3 mb-2">
+        ₹ {project.price.toLocaleString()}
+    </h3>
 
+    <p className="text-lg">
+        Status: <span className={`font-semibold ${project.status === "Available" ? "text-green-500" : "text-red-500"}`}>
+            {project.status}
+        </span>
+    </p>
 
+    <div className="mt-4 bg-gray-50 p-4 rounded-lg">
+        {project.percentage ? (
+            <>
+                <p className="text-xl font-sans font-bold text-gray-700">Broker</p>
+                <p className="text-lg text-gray-600">{project.name}</p>
+                <p className="text-lg text-gray-600">{project.percentage}%</p>
+            </>
+        ) : (
+          <>
+          <p className="text-xl font-bold text-gray-700">Onwer</p>
+          <p className="text-lg text-gray-600">{project.name}</p>
+        
+          </>
+        )}
+    </div>
+</div>
 
-      <div className="mt-5 container mx-auto lg:w-[90%] p-6 bg-white rounded-lg ">
-        <h1 className="text-3xl font-bold text-zinc-900 mb-2">{project.propertyname}</h1>
-        <h2 className="text-base text-gray-500 mb-4">
-          {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
-        </h2>
-        <h3 className="text-3xl font-semibold text-2 mt-3 mb-2">₹ {project.price.toLocaleString()}</h3>
-        <p className="text-lg">
-          Status: <span className="font-semibold text-green-500">{project.status}</span>
-        </p>
-      </div>
 
       <div className="bg-zinc-100 py-6 grid lg:grid-cols-4">
 

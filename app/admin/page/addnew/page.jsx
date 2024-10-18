@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Input from '../../components/Input/Input';
@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+
 export default function Addnew() {
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(true);
@@ -18,7 +19,10 @@ export default function Addnew() {
         metatitle: '',
         metadescription: '',
         type: '',
-        propertyname: ''
+        propertyname: '',
+        sellertype: '',  // Add sellertype here
+        name: '',  // For Owner
+        percentage: ''  // For Broker
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState('');
@@ -42,8 +46,12 @@ export default function Addnew() {
     }, [useremail]);
 
     const validateForm = useCallback(() => {
-        const { title, location, price, metatitle, metadescription, type, propertyname } = formData;
-        return title && location && price && metatitle && metadescription && type && propertyname;
+        const { title, location, price, metatitle, metadescription, type, propertyname, sellertype, name, percentage } = formData;
+
+        // Ensure the appropriate field for 'Onwer' or 'Broker' is filled
+        const isSellerFieldValid = sellertype === 'Onwer' ? name : sellertype === 'Broker' ? percentage : true;
+
+        return title && location && price && metatitle && metadescription && type && propertyname && sellertype && isSellerFieldValid;
     }, [formData]);
 
     useEffect(() => {
@@ -89,7 +97,10 @@ export default function Addnew() {
                     type: '',
                     metatitle: '',
                     metadescription: '',
-                    propertyname: ''
+                    propertyname: '',
+                    sellertype: '',
+                    name: '',
+                    percentage: ''
                 });
             } else {
                 setMessage(`Error: ${response.data.message}`);
@@ -110,6 +121,62 @@ export default function Addnew() {
                 <h1 className="text-2xl font-semibold mb-6">Add New Property</h1>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="flex flex-col gap-4">
+                        {/* Other form inputs */}
+
+                        <div className=''>
+                            <label htmlFor="sellertype" className="block text-sm font-medium text-gray-700">Seller Type</label>
+                            <select
+                                id="sellertype"
+                                name="sellertype"
+                                value={formData.sellertype}
+                                onChange={handleChange}
+                                className="w-full h-8 py-1 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
+                                required
+                            >
+                                <option value="" disabled>Select Seller Type</option>
+                                <option value="Onwer">Owner</option>
+                                <option value="Broker">Broker</option>
+                            </select>
+                        </div>
+
+                        {/* Conditional input based on seller type */}
+                        {formData.sellertype === 'Onwer' && (
+                            <div className=''>
+                                <Input
+                                    name="name"
+                                    label="Owner Name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    type="text"
+                                />
+                            </div>
+                        )}
+
+                        {formData.sellertype === 'Broker' && (
+                            <>
+                                <div className=''>
+                                    <Input
+                                        name="name"
+                                        label="Broker Name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        type="text"
+                                    />
+                                </div>
+                                <div className=''>
+                                    <Input
+                                        name="percentage"
+                                        label="Broker Percentage"
+                                        value={formData.percentage}
+                                        onChange={handleChange}
+                                        type="number"
+                                        step="0.01"
+                                    />
+                                </div>
+                            </>
+                        )}
+
+
                         <div className=''>
                             <Select
                                 name="title"
@@ -133,7 +200,7 @@ export default function Addnew() {
                                 label="Location"
                                 value={formData.location}
                                 onChange={handleChange}
-                                 className="w-full h-8 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
+                                className="w-full h-8 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
                                 required
                             >
                                 <option value="">SELECT DISTRICT</option>
@@ -190,7 +257,7 @@ export default function Addnew() {
                                 name="type"
                                 value={formData.type}
                                 onChange={handleChange}
-                                 className="w-full h-8 px-3 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
+                                className="w-full h-8 px-3 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
                                 required
                             >
                                 <option value=""></option>

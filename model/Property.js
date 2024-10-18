@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import moment from "moment"; // Import moment for date formatting
 
 const toUpperCase = (str) => str.toUpperCase();
 
@@ -8,6 +7,23 @@ const ProjectSchema = new Schema(
         adminid: {
             type: String,
             required: true,
+        },
+        sellertype: {
+            type: String,
+            enum: ['Onwer', 'Broker'],
+            required: true,
+        },
+        name: {
+            type: String,
+            required: function () {
+                return this.sellertype === 'Onwer';
+            },
+        },
+        percentage: {
+            type: Number,
+            required: function () {
+                return this.sellertype === 'Broker';
+            },
         },
         title: {
             type: String,
@@ -140,6 +156,6 @@ ProjectSchema.pre('save', async function (next) {
 });
 
 const ProjectModel =
-    mongoose.models.Project25 || mongoose.model("Project25", ProjectSchema);
+    mongoose.models.Project26 || mongoose.model("Project26", ProjectSchema);
 
 export default ProjectModel;
