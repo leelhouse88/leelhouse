@@ -8,7 +8,6 @@ import axios from 'axios';
 export default function Tabbanner({ location, setLocation, motive, setMotive, type, setType }) {
     const [city, setCity] = useState([]);
     const [services, setServices] = useState([]);
-    const [options, setOptions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -82,17 +81,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
         fetchService();
     }, []);
 
-    useEffect(() => {
-        axios.get('/api/category/fetchall/category')
-            .then(response => {
-                setOptions(response.data.fetch);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching options:", error);
-                setIsLoading(false);
-            });
-    }, []);
+
 
     const handlePropertyTypeChange = (type, searchType) => {
         setFormData((prevState) => ({
@@ -122,21 +111,59 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                 <TabPanel>
                     <form onSubmit={(e) => handleSearch(e, 'Buy')}>
                         <div className="flex flex-col gap-4">
-                            
+
 
                             <label className="block -mb-[14px] text-[12px] font-medium lg:text-black">Property Type</label>
                             <div className="flex flex-wrap gap-2">
-                                {options.map((item) => (
-                                    <button
-                                        key={item.id}
-                                        type="button"
-                                        onClick={() => handlePropertyTypeChange(item.name, 'Buy')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === item.name ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
-                                    >
-                                        {item.name}
-                                    </button>
-                                ))}
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('Apartment', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Apartment' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    Apartment
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('House', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'House' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    House
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('Villa', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Villa' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    Villa
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('Commercial', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Commercial' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    Commercial
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('Land', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Land' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    Land
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => handlePropertyTypeChange('Office', 'Buy')}
+                                    className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Office' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                >
+                                    Office
+                                </button>
                             </div>
+
 
                             <label htmlFor="BuyLocation" className="block -mb-[14px] text-[12px] font-medium text-black"> City</label>
                             <select
@@ -164,19 +191,59 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                 <TabPanel>
                     <form onSubmit={(e) => handleSearch(e, 'Rent')}>
                         <div className="flex flex-col gap-4">
-                           
+
                             <label className="block -mb-[14px] text-[12px] font-medium text-black">Property Type</label>
                             <div className="flex flex-wrap gap-2">
-                                {options.map((item) => (
+                                <div className="flex flex-wrap gap-2">
                                     <button
-                                        key={item.id}
                                         type="button"
-                                        onClick={() => handlePropertyTypeChange(item.name, 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === item.name ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        onClick={() => handlePropertyTypeChange('Apartment', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Apartment' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
-                                        {item.name}
+                                        Apartment
                                     </button>
-                                ))}
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange('House', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'House' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        House
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange('Villa', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Villa' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        Villa
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange('Commercial', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Commercial' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        Commercial
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange('Land', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Land' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        Land
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePropertyTypeChange('Office', 'Rent')}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Office' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                    >
+                                        Office
+                                    </button>
+                                </div>
+
                             </div>
 
                             <label htmlFor="RentLocation" className="block -mb-[14px] text-[12px] font-medium text-black"> City</label>
@@ -206,7 +273,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                 <TabPanel>
                     <form onSubmit={handleServiceSearch}>
                         <div className="flex flex-col gap-4">
-                         
+
 
                             <label className="block -mb-[14px] text-[12px] font-medium text-black">Service Type</label>
                             <div className="flex flex-wrap gap-2">

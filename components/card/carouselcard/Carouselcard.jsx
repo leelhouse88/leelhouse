@@ -64,7 +64,7 @@ export default function Card({ listingType, purpose, location, type }) {
           (!listingType || property.listingType === listingType) &&
           (!location || property.location === location) &&
           (!purpose || property.purpose === purpose) &&
-          (!type || property.title === type)
+          (!type || property.type === type)
         );
 
         setTotalProperties(filteredProperties);
