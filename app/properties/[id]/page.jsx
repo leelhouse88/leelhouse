@@ -65,12 +65,41 @@ export default function SinglePage({ params }) {
             <div className="container lg:w-[90%] mx-auto">
 
 
-                <div className="mt-5 container p-6 bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl">
-                    <h1 className="text-3xl font-extrabold text-zinc-800 mb-4">{project.propertyname}</h1>
+                <div className="my-5 container p-6 bg-white rounded-lg shadow-lg transition-shadow hover:shadow-xl">
+                    <div className="grid md:grid-cols-2 gap-4 items-start">
+                        {/* Left Section */}
+                        <div>
+                            <h1 className="text-4xl font-extrabold text-zinc-900 mb-3 leading-tight">{project.propertyname}</h1>
+                            <h2 className="text-lg text-gray-600 leading-relaxed">
+                                {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
+                            </h2>
+                        </div>
 
-                    <h2 className="text-base border-b pb-3 text-gray-500 mb-4">
-                        {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
-                    </h2>
+                        {/* Right Section */}
+                        <div className="md:flex md:justify-end">
+                            {project.percentage ? (
+                                <div className=" p-3 border border-gray-300 rounded-lg shadow-lg bg-gradient-to-br from-white to-gray-50 transition-shadow hover:shadow-md space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className=" ">🔑</span>
+                                        <p className="text-lg font-extrabold text-zinc-900">Broker = </p>
+                                        <p className="text-lg text-gray-600">{project.name}</p>
+                                        <p className="text-sm  flex justify-center items-center w-8 h-8 font-bold text-white bg-2 rounded-full"> {project.percentage}%</p>
+                                    </div>
+                                </div>
+                            ) : (
+                              
+                                 <div className=" p-3 border border-gray-300 rounded-lg shadow-lg bg-gradient-to-br from-white to-gray-50 transition-shadow hover:shadow-md space-y-3">
+                                 <div className="flex items-center gap-2">
+                                     <span className=" ">🏠</span>
+                                     <p className="text-lg font-extrabold text-zinc-900">Owner = </p>
+                                     <p className="text-lg text-gray-600">{project.name}</p>
+                                 </div>
+                             </div>
+                            )}
+                        </div>
+                    </div>
+
+
 
                     <h3 className="text-3xl font-bold text-2 mt-3 mb-4">
                         ₹ {project.price.toLocaleString()}
@@ -78,6 +107,10 @@ export default function SinglePage({ params }) {
 
                     <p className="text-sm mb-2">
                         Status: <span className={`font-semibold ${project.status === 'Available' ? 'text-green-500' : 'text-red-500'}`}>{project.status}</span>
+                    </p>
+
+                    <p className="text-sm mb-2 font-medium">
+                        OnwerShip: <span className=" bg-2 text-white px-4 rounded-md p-1">{project.ownership}</span>
                     </p>
 
                     <div className=" flex flex-wrap gap-4">
@@ -165,8 +198,8 @@ export default function SinglePage({ params }) {
 
 
                 <div className="  grid lg:grid-cols-3">
-                   <div className=" lg:col-span-1"> <Review projectid={project._id} /></div>
-                   <div className="   lg:col-span-2 overflow-hidden"> <AllReview projectid={project._id} /></div>
+                    <div className=" lg:col-span-1"> <Review projectid={project._id} /></div>
+                    <div className="   lg:col-span-2 overflow-hidden"> <AllReview projectid={project._id} /></div>
                 </div>
 
 

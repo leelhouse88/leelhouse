@@ -30,6 +30,7 @@ export default function Update2({ params }) {
         sellertype: '',  // Add sellertype here
         name: '',  // For Owner
         percentage: '',  // For Broker
+        ownership: '',
 
         size: '',
         floor: '',
@@ -96,7 +97,7 @@ export default function Update2({ params }) {
                         sellertype: project.sellertype || '',
                         name: project.name || '',
                         percentage: project.percentage || '',
-
+                        ownership: project.ownership || '',
 
 
                         size: project.size || '',
@@ -316,9 +317,28 @@ export default function Update2({ params }) {
                                             onChange={handleChange} />
                                     </div>
 
+                                    <div className=''>
+                                        <label htmlFor="ownership" className="block text-sm font-medium text-gray-600">Ownershp</label>
+                                        <select name="ownership"
+                                            label="ownership"
+                                            value={formData.ownership}
+                                            onChange={handleChange}
+                                            className="w-full h-8 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
+                                            required
+                                        >
+                                            <option value="">SELECT OWNERSHIP</option>
+                                            <option value="Freehold">Freehold</option>
+                                            <option value="Leasehold">Leasehold</option>
+                                            <option value="Co-operative society">Co-operative society</option>
+                                            <option value="Power of Attorney">Power of Attorney</option>
 
-{/* Conditional input based on seller type */}
-{formData.sellertype === 'Onwer' && (
+                                        </select>
+
+                                    </div>
+
+
+                                    {/* Conditional input based on seller type */}
+                                    {formData.sellertype === 'Onwer' && (
                                         <div className=''>
                                             <Input
                                                 name="name"

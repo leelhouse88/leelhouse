@@ -22,7 +22,8 @@ export default function Addnew() {
         propertyname: '',
         sellertype: '',  // Add sellertype here
         name: '',  // For Owner
-        percentage: ''  // For Broker
+        percentage: '',  // For Broker
+        ownership: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [message, setMessage] = useState('');
@@ -46,12 +47,12 @@ export default function Addnew() {
     }, [useremail]);
 
     const validateForm = useCallback(() => {
-        const { title, location, price, metatitle, metadescription, type, propertyname, sellertype, name, percentage } = formData;
+        const { title, location, price, metatitle, metadescription, type, propertyname, sellertype, name, percentage, ownership } = formData;
 
         // Ensure the appropriate field for 'Onwer' or 'Broker' is filled
         const isSellerFieldValid = sellertype === 'Onwer' ? name : sellertype === 'Broker' ? percentage : true;
 
-        return title && location && price && metatitle && metadescription && type && propertyname && sellertype && isSellerFieldValid;
+        return title && location && price && metatitle && metadescription && type && propertyname && sellertype && isSellerFieldValid && ownership;
     }, [formData]);
 
     useEffect(() => {
@@ -100,7 +101,8 @@ export default function Addnew() {
                     propertyname: '',
                     sellertype: '',
                     name: '',
-                    percentage: ''
+                    percentage: '',
+                    ownership: ''
                 });
             } else {
                 setMessage(`Error: ${response.data.message}`);
@@ -176,7 +178,24 @@ export default function Addnew() {
                             </>
                         )}
 
+                        <div className=''>
+                            <label htmlFor="ownership" className="block text-sm font-medium text-gray-600">Ownershp</label>
+                            <select name="ownership"
+                                label="ownership"
+                                value={formData.ownership}
+                                onChange={handleChange}
+                                className="w-full h-8 py-2 border-b border-gray-300 focus:border-b focus:border-blue-900 bg-white focus:bg-transparent focus:rounded-none text-gray-700  focus:ring-0 focus:outline-none transition duration-150 ease-in-out sm:text-sm"
+                                required
+                            >
+                                <option value="">SELECT OWNERSHIP</option>
+                                <option value="Freehold">Freehold</option>
+                                <option value="Leasehold">Leasehold</option>
+                                <option value="Co-operative society">Co-operative society</option>
+                                <option value="Power of Attorney">Power of Attorney</option>
 
+                            </select>
+
+                        </div>
                         <div className=''>
                             <Select
                                 name="title"

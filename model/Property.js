@@ -13,6 +13,12 @@ const ProjectSchema = new Schema(
             enum: ['Onwer', 'Broker'],
             required: true,
         },
+
+        ownership:{
+            type: String,
+            enum: ['Freehold', 'Leasehold','Co-operative society','Power of Attorney'],
+            required: true,
+        },
         name: {
             type: String,
             required: function () {
@@ -156,6 +162,6 @@ ProjectSchema.pre('save', async function (next) {
 });
 
 const ProjectModel =
-    mongoose.models.Project26 || mongoose.model("Project26", ProjectSchema);
+    mongoose.models.Project27 || mongoose.model("Project27", ProjectSchema);
 
 export default ProjectModel;

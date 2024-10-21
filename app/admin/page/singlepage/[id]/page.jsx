@@ -181,45 +181,55 @@ export default function SinglePage({ params }) {
       )}
 
       {/* Display the admin name here */}
-    
+
       <div className="mt-5 container mx-auto lg:w-[90%] p-6 bg-white rounded-lg shadow-lg">
-    <h1 className="text-2xl font-bold text-zinc-900 mb-2 flex justify-between">
-        {project.propertyname}
-        <span className="text-xl">
+        <h1 className="text-2xl font-bold text-zinc-900 mb-2 flex justify-between">
+          {project.propertyname}
+          <span className="text-xl">
             Uploaded by: <span className="font-semibold">{adminName ? adminName : "Admin not found"}</span>
-        </span>
-    </h1>
-    
-    <h2 className="text-base text-gray-500 mb-4">
-        {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
-    </h2>
+          </span>
+        </h1>
 
-    <h3 className="text-3xl font-semibold text-zinc-900 mt-3 mb-2">
-        ₹ {project.price.toLocaleString()}
-    </h3>
+        <h2 className="text-base text-gray-500 mb-4">
+          {project.address.houseNumber}, {project.address.colony}, {project.address.area}, {project.address.city}
+        </h2>
 
-    <p className="text-lg">
-        Status: <span className={`font-semibold ${project.status === "Available" ? "text-green-500" : "text-red-500"}`}>
+        <h3 className="text-3xl font-semibold text-zinc-900 mt-3 mb-2">
+          ₹ {project.price.toLocaleString()}
+        </h3>
+
+        <p className="text-lg">
+          Status: <span className={`font-semibold ${project.status === "Available" ? "text-green-500" : "text-red-500"}`}>
             {project.status}
-        </span>
-    </p>
+          </span>
+        </p>
+        <p className="text-lg mb-2 font-medium">
+          OnwerShip: <span className=" bg-2 text-white px-4 rounded-md p-1">{project.ownership}</span>
+        </p>
 
-    <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-        {project.percentage ? (
-            <>
-                <p className="text-xl font-sans font-bold text-gray-700">Broker</p>
+        <div className="md:flex md:justify-end">
+          {project.percentage ? (
+            <div className=" p-3 border border-gray-300 rounded-lg shadow-lg bg-gradient-to-br from-white to-gray-50 transition-shadow hover:shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className=" ">🔑</span>
+                <p className="text-lg font-extrabold text-zinc-900">Broker = </p>
                 <p className="text-lg text-gray-600">{project.name}</p>
-                <p className="text-lg text-gray-600">{project.percentage}%</p>
-            </>
-        ) : (
-          <>
-          <p className="text-xl font-bold text-gray-700">Onwer</p>
-          <p className="text-lg text-gray-600">{project.name}</p>
-        
-          </>
-        )}
-    </div>
-</div>
+                <p className="text-sm  flex justify-center items-center w-8 h-8 font-bold text-white bg-2 rounded-full"> {project.percentage}%</p>
+              </div>
+            </div>
+          ) : (
+
+            <div className=" p-3 border border-gray-300 rounded-lg shadow-lg bg-gradient-to-br from-white to-gray-50 transition-shadow hover:shadow-md space-y-3">
+              <div className="flex items-center gap-2">
+                <span className=" ">🏠</span>
+                <p className="text-lg font-extrabold text-zinc-900">Owner = </p>
+                <p className="text-lg text-gray-600">{project.name}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+      </div>
 
 
       <div className="bg-zinc-100 py-6 grid lg:grid-cols-4">
