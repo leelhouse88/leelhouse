@@ -63,7 +63,7 @@ export default function Card({ listingType, purpose, location, type }) {
         const filteredProperties = properties.filter(property =>
           (!listingType || property.listingType === listingType) &&
           (!location || property.location === location) &&
-          (!purpose || property.purpose === purpose) &&
+          (purpose === "All" || !purpose || property.purpose === purpose) && // Update purpose check
           (!type || property.type === type)
         );
 

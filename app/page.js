@@ -6,7 +6,7 @@ import Banner from '@/components/banner/Banner';
 import Service from '@/components/service/Service';
 import SpotlightCard from '@/components/card/spotlight/Card';
 import CollectionCard from "@/components/card/collection/Card";
-
+import Location from '@/components/card/location/Location';
 import Carouselcard from "@/components/card/carouselcard/Carouselcard";
 import Movein from "@/components/card/movein/Movein"
 import Button from "@/components/button/Btn";
@@ -15,7 +15,7 @@ import Ping from '@/components/button/ping';
 import axios from 'axios';
 export default function MainPage() {
   const [location, setLocation] = useState('JAIPUR');
-  const [motive, setMotive] = useState('Buy');
+  const [motive, setMotive] = useState('All');
   const [type, setType] = useState('');
 
   const [metadata, setMetadata] = useState([]);
@@ -38,8 +38,8 @@ export default function MainPage() {
 
   return (
     <>
-      <Navbar location={location}/>
-      
+      <Navbar location={location} />
+
       {filteredMetadata.map((item) => (
         <>
           <title key={item._id}>{item.title}</title>
@@ -84,6 +84,26 @@ export default function MainPage() {
         </div>
       </div>
 
+
+      <div className=''>
+        <div className='container lg:w-5/6 mx-auto py-5 lg:py-8'>
+          <div className='lg:mb-4 mb-2 px-2 flex justify-between items-center'>
+            <div>
+              <div className=' relative'>
+
+                <h2 className='text-2xl md:text-4xl'>Find in Your City</h2>
+
+              </div>
+              <div className=' bg-2 w-20 h-0.5 mt-2'></div>
+            </div>
+
+          </div>
+          <Location location={location} />
+        </div>
+      </div>
+
+
+
       <div className='  '>
         <div className='container lg:w-5/6 mx-auto py-5 lg:py-8'>
           <div className='lg:mb-4 mb-2 px-2 flex justify-between items-center'>
@@ -96,7 +116,7 @@ export default function MainPage() {
               <div className=' bg-2 w-20 h-0.5 mt-2'></div>
             </div>
             <div className=''>
-            <Link href={`/categories/all category-${location}`}>
+              <Link href={`/categories/all category-${location}`}>
                 <Button title=" View All" />
               </Link>
             </div>
@@ -110,7 +130,7 @@ export default function MainPage() {
           <div className='lg:mb-4 mb-2 px-2 flex justify-between items-center'>
             <div>
               <div className=' relative'>
-            
+
                 <h2 className='text-2xl md:text-4xl'>Move in now</h2>
 
               </div>
@@ -135,7 +155,7 @@ export default function MainPage() {
               <div className=' bg-2 w-20 h-0.5 mt-2'></div>
             </div>
             <div className=''>
-            <Link href={`/categories/all category-${location}`}>
+              <Link href={`/categories/all category-${location}`}>
                 <Button title=" View All" />
               </Link>
             </div>

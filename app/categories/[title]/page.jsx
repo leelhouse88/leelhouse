@@ -27,8 +27,8 @@ export default function Collectionproject({ params }) {
     const [titles, setTitles] = useState(["All Category"]);
     const [loading, setLoading] = useState(true);
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(100000000); // Default max price
-    const itemsPerPage = 1;
+    const [maxPrice, setMaxPrice] = useState(10000000000); // Default max price
+    const itemsPerPage = 5;
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);

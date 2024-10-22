@@ -198,7 +198,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('Apartment', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Apartment' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'Apartment' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         Apartment
                                     </button>
@@ -206,7 +206,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('House', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'House' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'House' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         House
                                     </button>
@@ -214,7 +214,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('Villa', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Villa' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'Villa' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         Villa
                                     </button>
@@ -222,7 +222,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('Commercial', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Commercial' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'Commercial' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         Commercial
                                     </button>
@@ -230,7 +230,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('Land', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Land' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'Land' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         Land
                                     </button>
@@ -238,7 +238,7 @@ export default function Tabbanner({ location, setLocation, motive, setMotive, ty
                                     <button
                                         type="button"
                                         onClick={() => handlePropertyTypeChange('Office', 'Rent')}
-                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.BuyType === 'Office' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
+                                        className={`py-0.5 px-2 text-sm capitalize rounded-md ${formData.RentType === 'Office' ? 'bg-2 text-white' : 'border border-gray-300 text-black'} transition-colors duration-300`}
                                     >
                                         Office
                                     </button>
